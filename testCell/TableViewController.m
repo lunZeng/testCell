@@ -12,7 +12,7 @@
 
 #import "TableMoedel.h"
 
-
+#import "MJRefresh.h"
 
 @interface TableViewController ()
 
@@ -49,6 +49,10 @@
     [self loadData];
     
     self.pArray =[NSArray arrayWithObjects:@"p1",@"p2",@"p3",@"p1",@"p2",@"p3" ,nil];
+    
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    
+    //[self.tableView.header beginRefreshing];
 }
 
 
@@ -58,7 +62,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)loadNewData{
+    
+    NSLog(@"load new data");
+    [self.tableView.mj_header endRefreshing];
 
+}
 
 
 - (void)loadData{
